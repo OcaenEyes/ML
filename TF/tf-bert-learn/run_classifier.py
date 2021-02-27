@@ -198,7 +198,7 @@ class DataProcessor(object):
   def _read_tsv(cls, input_file, quotechar=None):
     """Reads a tab separated value file."""
     with tf.gfile.Open(input_file, "r") as f:
-      reader = csv.reader(f, delimiter="\t", quotechar=quotechar)
+      reader = csv.reader(f, quotechar=quotechar)
       lines = []
       for line in reader:
         lines.append(line)
@@ -390,15 +390,17 @@ class CommentProcessor(DataProcessor):
             self._read_tsv(os.path.join(data_dir, "test.tsv")), "test"
         )
     def get_labels(self):
-        return ["-1","0","1"]
+        return ["0","1","2"]
     def _create_examples(self,lines,set_type):
         examples=[]
         for (i ,line) in enumerate(lines):
             if i == 0:
                 continue
             guid = "%s-%s" % (set_type,i)
-
-            text_a = tokenization.convert_to_unicode(line[1])
+            try:
+                text_a = tokenization.convert_to_unicode(line[1])
+            except:
+                continue
             if set_type == "test":
                 label = "0"
             else:

@@ -13,7 +13,7 @@ import tensorflow as tf
 import argparse
 import pickle
 
-tf.app.flags.DEFINE_string('export_model_dir', "./output/versions", 'Directory where the model exported files should be placed.')
+tf.app.flags.DEFINE_string('export_model_dir', "./output/comment_0/versions", 'Directory where the model exported files should be placed.')
 tf.app.flags.DEFINE_integer('model_version', 10001, 'Models version number.')
 FLAGS = tf.app.flags.FLAGS
 
@@ -103,14 +103,19 @@ def main(max_seq_len, model_dir, num_labels):
         input_mask_tensor = tf.saved_model.utils.build_tensor_info(input_mask)
         # output tensor info
         logits_output = tf.saved_model.utils.build_tensor_info(logits)
+        print("logits_output")
+        print(logits_output)
         probabilities_output = tf.saved_model.utils.build_tensor_info(probabilities)
+        print("probabilities_output")
+        print(probabilities_output)
 
         # Defines the DeepLab signatures, uses the TF Predict API
         # It receives an image and its dimensions and output the segmentation mask
+        labels_map = ['-1','0','1']
         prediction_signature = (
             tf.saved_model.signature_def_utils.build_signature_def(
                 inputs={'input_ids': input_ids_tensor, 'input_mask': input_mask_tensor},
-                outputs={'pred_label': logits_output, 'score':probabilities_output},
+                outputs={'pred_label': logits_output , 'score':probabilities_output},
                 method_name=tf.saved_model.signature_constants.PREDICT_METHOD_NAME))
 
         builder.add_meta_graph_and_variables(
@@ -126,5 +131,5 @@ def main(max_seq_len, model_dir, num_labels):
 if __name__ == '__main__':
     max_seq_len = 128
     num_labels = 3
-    model_dir = './output/comment_1'
+    model_dir = './output/comment_0'
     main(max_seq_len, model_dir, num_labels)
