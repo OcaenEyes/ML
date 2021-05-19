@@ -3,7 +3,6 @@
 .idea/vcs.xml
 .idea/ML.iml
 debug.log
-*/*.csv
 /AI训练赛/中文阅读理解/dataset/
 /AI训练赛/中文阅读理解/uncased_L-2_H-128_A-2/
 /AI训练赛/基于seq2seq+attention实现文本摘要任务/dataset/
@@ -18,3 +17,5 @@ debug.log
 /TF/tf-bert-learn/output/
 /TF/tf-bert-learn/uncased_L-2_H-128_A-2/
 /决策树/dataset/
+*.pyc
+
