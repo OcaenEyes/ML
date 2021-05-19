@@ -19,3 +19,8 @@ debug.log
 /决策树/dataset/
 *.pyc
 
+/AI训练赛/基于bert实现知识库问答/dataset/
+/AI训练赛/基于bert实现知识库问答/models/
+/AI训练赛/基于bert实现知识库问答/temp/
+.idea/ML.iml
+.idea/misc.xml
