@@ -28,3 +28,5 @@ debug.log
 .idea/ML.iml
 .idea/misc.xml
 AI训练赛/微博新闻分析/微博新闻数据集.csv
+/AI训练赛/古诗词/data/
+/AI训练赛/基于XGB构建多层次用户画像及标签体系/data/
