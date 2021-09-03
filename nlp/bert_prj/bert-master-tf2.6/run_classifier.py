@@ -27,6 +27,7 @@ import tokenization
 import tensorflow as tf
 from absl import flags
 from absl import app
+import pickle
 
 # flags = tf.flags
 
@@ -51,6 +52,11 @@ flags.DEFINE_string("vocab_file", None,
 flags.DEFINE_string(
     "output_dir", None,
     "The output directory where the model checkpoints will be written.")
+
+flags.DEFINE_string(
+    "trans_model_dir", None,
+    "The trans_model_dir directory where the model will be written.")
+
 
 ## Other parameters
 
@@ -391,6 +397,11 @@ def convert_single_example(ex_index, example, label_list, max_seq_length,
   label_map = {}
   for (i, label) in enumerate(label_list):
     label_map[label] = i
+
+  output_label2id_file = os.path.join(FLAGS.trans_model_dir, "label2id.pkl")
+  if not os.path.exists(output_label2id_file):
+    with open(output_label2id_file, 'wb') as w:
+        pickle.dump(label_map, w)
 
   tokens_a = tokenizer.tokenize(example.text_a)
   tokens_b = None
@@ -783,6 +794,23 @@ def convert_examples_to_features(examples, label_list, max_seq_length,
   return features
 
 
+def serving_input_fn():
+    # 保存模型为SaveModel格式
+    # 采用最原始的feature方式，输入是feature Tensors。
+    # 如果采用build_parsing_serving_input_receiver_fn，则输入是tf.Examples
+
+    label_ids = tf.compat.v1.placeholder(tf.int32, [None, 3], name='label_ids')
+    input_ids = tf.compat.v1.placeholder(tf.int32, [None, 200], name='input_ids')
+    input_mask = tf.compat.v1.placeholder(tf.int32, [None, 200], name='input_mask')
+    segment_ids = tf.compat.v1.placeholder(tf.int32, [None, 200], name='segment_ids')
+    input_fn = tf.estimator.export.build_raw_serving_input_receiver_fn({
+        'label_ids': label_ids,
+        'input_ids': input_ids,
+        'input_mask': input_mask,
+        'segment_ids': segment_ids,
+    })()
+    return input_fn
+
 def main(_):
   tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.INFO)
 
@@ -809,6 +837,7 @@ def main(_):
         (FLAGS.max_seq_length, bert_config.max_position_embeddings))
 
   tf.io.gfile.makedirs(FLAGS.output_dir)
+  tf.io.gfile.makedirs(FLAGS.trans_model_dir)
 
   task_name = FLAGS.task_name.lower()
 
@@ -921,6 +950,10 @@ def main(_):
 
     result = estimator.evaluate(input_fn=eval_input_fn, steps=eval_steps)
 
+    # trans_model_dir模型转换后输出目录，将模型转换为saved model
+    estimator._export_to_tpu = False
+    estimator.export_savedmodel(FLAGS.trans_model_dir, serving_input_fn)
+
     output_eval_file = os.path.join(FLAGS.output_dir, "eval_results.txt")
     with tf.io.gfile.GFile(output_eval_file, "w") as writer:
       tf.compat.v1.logging.info("***** Eval results *****")
@@ -981,4 +1014,5 @@ if __name__ == "__main__":
   flags.mark_flag_as_required("vocab_file")
   flags.mark_flag_as_required("bert_config_file")
   flags.mark_flag_as_required("output_dir")
+  flags.mark_flag_as_required("trans_model_dir")
   app.run(main)
