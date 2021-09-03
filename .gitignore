@@ -33,3 +33,7 @@ AI训练赛/微博新闻分析/微博新闻数据集.csv
 /AI训练赛/角色命名实体识别/data/
 TF/tf2.0/.idea/
 TF/.idea/
+nlp/bert_prj/datasets/
+nlp/bert_prj/base_model/
+nlp/bert_prj/tmp/
+nlp/tmp/
