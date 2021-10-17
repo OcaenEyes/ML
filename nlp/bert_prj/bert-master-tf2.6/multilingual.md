@@ -115,7 +115,7 @@ debugging, just set `num_train_epochs` to a small value like `0.1`.
 export BERT_BASE_DIR=/path/to/bert/chinese_L-12_H-768_A-12 # or multilingual_L-12_H-768_A-12
 export XNLI_DIR=/path/to/xnli
 
-python run_classifier.py \
+python cn_cate_cls_classifier.py \
   --task_name=XNLI \
   --do_train=true \
   --do_eval=true \

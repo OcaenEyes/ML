@@ -37,3 +37,4 @@ nlp/bert_prj/datasets/
 nlp/bert_prj/base_model/
 nlp/bert_prj/tmp/
 nlp/tmp/
+nlp/.idea/
