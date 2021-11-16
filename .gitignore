@@ -39,3 +39,4 @@ nlp/tmp/
 nlp/.idea/
 **/datasets/
 /alert/
+**/base-models/
