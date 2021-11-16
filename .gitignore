@@ -1,7 +1,6 @@
 
 .DS_Store
-.idea/vcs.xml
-.idea/ML.iml
+.idea/
 debug.log
 /AI训练赛/中文阅读理解/dataset/
 /AI训练赛/中文阅读理解/uncased_L-2_H-128_A-2/
@@ -38,3 +37,5 @@ nlp/bert_prj/base_model/
 nlp/bert_prj/tmp/
 nlp/tmp/
 nlp/.idea/
+**/datasets/
+/alert/
