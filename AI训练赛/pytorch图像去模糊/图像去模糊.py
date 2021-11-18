@@ -15,6 +15,8 @@ from torch.utils import data
 from torchvision import transforms
 from tqdm.notebook import tqdm
 
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
 
 class Config():
     def __init__(self, name="Configs"):
@@ -78,8 +80,8 @@ def getPatch(img_input, img_target, patch_size):
     x = random.randrange(0, w - p + 1)
     y = random.randrange(0, h - p + 1)
 
-    img_input = img_input.crop(x, y, x + p, y + p)
-    img_target = img_target.crop(x, y, x + p, y + p)
+    img_input = img_input.crop((x, y, x + p, y + p))
+    img_target = img_target.crop((x, y, x + p, y + p))
 
     return img_input, img_target
 
@@ -94,6 +96,7 @@ class Gopro(data.Dataset):
 
         self.sharp_file_paths = []
         sub_folders = os.listdir(data_dir)
+        print('sub_folders')
         print(sub_folders)
 
         for folder_name in sub_folders:
@@ -115,11 +118,11 @@ class Gopro(data.Dataset):
 
         return img_input, img_target
 
-    def __get_item__(self, idx):
+    def __getitem__(self, idx):
         img_input, img_target = self.get_img_pair(idx)
 
         if self.is_train:
-            img_input, img_target = getPatch(img_input, img_target, set.patch_size)
+            img_input, img_target = getPatch(img_input, img_target, self.patch_size)
             img_input, img_target = argment(img_input, img_target)
 
         # 转换为 tensor类型
@@ -200,8 +203,8 @@ class UpConv(nn.Module):
                                   nn.PixelShuffle(2),
                                   nn.ReLU(inplace=True))
 
-        def forward(self, x):
-            return self.body(x)
+    def forward(self, x):
+        return self.body(x)
 
 
 class ResidualBlock(nn.Module):
@@ -278,7 +281,7 @@ class MultiScaleNet(nn.Module):
         output_l2 = self.scale2_net(torch.cat((input_b2, output_l3_up), 1))
         output_l2_up = self.upconv2(output_l2)
 
-        output_l1 = self.scale2_net(torch.cat((input_b1, output_l2_up)), 1)
+        output_l1 = self.scale2_net(torch.cat((input_b1, output_l2_up), 1))
 
         return output_l1, output_l2, output_l3
 
@@ -292,10 +295,12 @@ else:
                               n_resblocks=args.n_resblocks,
                               is_skip=args.skip)
 
-my_model.cuda()
+if torch.cuda.is_available():
+    my_model.cuda()
+    loss_function = nn.MSELoss().cuda()
+else:
+    loss_function = nn.MSELoss()
 
-loss_function = nn.MSELoss().cuda()
-# loss_function = nn.MSELoss()
 optimizer = optim.Adam(my_model.parameters(), lr=args.lr)
 
 scheduler = lr_scheduler.StepLR(optimizer, args.lr_step_size, args.lr_gama)
@@ -307,24 +312,29 @@ if __name__ == '__main__':
     for epoch in range(args.epochs):
         total_loss = 0
         batch_bar = tqdm(data_loader, bar_format=bar_format)  # 利用tqdm动态显示训练过程
+        print('batch_bar')
+        print(batch_bar)
+
         for batch, images in enumerate(batch_bar):
+            print('batch')
+            print(batch)
             my_model.train()
             curr_batch = epoch * data_loader.__len__() + batch  # 当前batch在整个训练过程中的索引
 
-            input_b1 = images['input_b1']  # 原始输入图像
-            target_s1 = images['target_s1']  # 目标非模糊图片
+            input_b1 = images['input_b1'].to(device)  # 原始输入图像
+            target_s1 = images['target_s1'].to(device)  # 目标非模糊图片
 
             if args.multi:
-                input_b2 = images['input_b2']  # level-2 尺度
-                target_b2 = images['target_s2']
+                input_b2 = images['input_b2'].to(device)  # level-2 尺度
+                target_s2 = images['target_s2'].to(device)
 
-                input_b3 = images['input_b3']  # level-3 尺度
-                target_b3 = images['target_s3']
+                input_b3 = images['input_b3'].to(device)  # level-3 尺度
+                target_s3 = images['target_s3'].to(device)
                 output_l1, output_l2, output_l3 = my_model((input_b1, input_b2, input_b3))
 
                 # 损失函数
-                loss = (loss_function(output_l1, target_s1) + loss_function(output_l2, target_b2) + loss_function(
-                    output_l3, target_b3)) / 3
+                loss = (loss_function(output_l1, target_s1) + loss_function(output_l2, target_s2) + loss_function(
+                    output_l3, target_s3)) / 3
 
             else:
                 output_l1 = my_model(input_b1)
