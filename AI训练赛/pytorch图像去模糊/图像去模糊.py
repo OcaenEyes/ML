@@ -62,14 +62,17 @@ class Config():
 args = Config(name="image-deblurring")
 
 
-def argment(img_input, img_target):
+def augment(img_input, img_target):
     degree = random.choice([0, 90, 180, 270])
+    img_input = transforms.functional.rotate(img_input, degree)
+    img_target = transforms.functional.rotate(img_target, degree)
 
-    img_input = transforms.functional.rotate(img_input, 1)
+    # color augmentation
+    img_input = transforms.functional.adjust_gamma(img_input, 1)
     img_target = transforms.functional.adjust_gamma(img_target, 1)
-
     sat_factor = 1 + (0.2 - 0.4 * np.random.rand())
     img_input = transforms.functional.adjust_saturation(img_input, sat_factor)
+    img_target = transforms.functional.adjust_saturation(img_target, sat_factor)
 
     return img_input, img_target
 
@@ -123,7 +126,7 @@ class Gopro(data.Dataset):
 
         if self.is_train:
             img_input, img_target = getPatch(img_input, img_target, self.patch_size)
-            img_input, img_target = argment(img_input, img_target)
+            img_input, img_target = augment(img_input, img_target)
 
         # 转换为 tensor类型
         input_b1 = transforms.ToTensor()(img_input)
@@ -265,7 +268,7 @@ class MultiScaleNet(nn.Module):
                                          n_resblocks,
                                          is_skip,
                                          n_channels=6)
-        self.scale2_net = UpConv()
+        self.upconv2 = UpConv()
 
         self.scale1_net = SingleScaleNet(n_feats,
                                          n_resblocks,
