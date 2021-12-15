@@ -2,8 +2,11 @@ import torch
 import torch.nn.functional as F
 import os
 import argparse
+
 from tqdm import trange
 from transformers import GPT2LMHeadModel
+
+os.environ['CUDA_LAUNCH_BLOCKING'] = '1'
 
 
 def is_word(word):
@@ -68,7 +71,8 @@ def top_k_top_p_filtering(logits, top_k=0, top_p=0.0, filter_value=-float('Inf')
     return logits
 
 
-def sample_sequence(model, context, length, n_ctx, tokenizer, temperature=1.0, top_k=30, top_p=0.0, repitition_penalty=1.0,
+def sample_sequence(model, context, length, n_ctx, tokenizer, temperature=1.0, top_k=30, top_p=0.0,
+                    repitition_penalty=1.0,
                     device='cpu'):
     context = torch.tensor(context, dtype=torch.long, device=device)
     context = context.unsqueeze(0)
@@ -111,13 +115,15 @@ def fast_sample_sequence(model, context, length, temperature=1.0, top_k=30, top_
 
 
 # 通过命令行参数--fast_pattern，指定模式
-def generate(n_ctx, model, context, length, tokenizer, temperature=1, top_k=0, top_p=0.0, repitition_penalty=1.0, device='cpu',
+def generate(n_ctx, model, context, length, tokenizer, temperature=1, top_k=0, top_p=0.0, repitition_penalty=1.0,
+             device='cpu',
              is_fast_pattern=False):
     if is_fast_pattern:
         return fast_sample_sequence(model, context, length, temperature=temperature, top_k=top_k, top_p=top_p,
                                     device=device)
     else:
-        return sample_sequence(model, context, length, n_ctx, tokenizer=tokenizer, temperature=temperature, top_k=top_k, top_p=top_p,
+        return sample_sequence(model, context, length, n_ctx, tokenizer=tokenizer, temperature=temperature, top_k=top_k,
+                               top_p=top_p,
                                repitition_penalty=repitition_penalty, device=device)
 
 
@@ -178,6 +184,7 @@ def main():
         raw_text = args.prefix
         context_tokens = tokenizer.convert_tokens_to_ids(tokenizer.tokenize(raw_text))
         generated = 0
+
         for _ in range(nsamples // batch_size):
             out = generate(
                 n_ctx=n_ctx,
@@ -185,7 +192,8 @@ def main():
                 context=context_tokens,
                 length=length,
                 is_fast_pattern=args.fast_pattern, tokenizer=tokenizer,
-                temperature=temperature, top_k=topk, top_p=topp, repitition_penalty=repetition_penalty, device=device
+                temperature=temperature, top_k=topk, top_p=topp, repitition_penalty=repetition_penalty,
+                device=device
             )
             for i in range(batch_size):
                 generated += 1
