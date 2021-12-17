@@ -15,7 +15,8 @@ def build_files(data_path, tokenized_data_path, num_pieces, full_tokenizer, min_
     with open(data_path, 'r', encoding='utf8') as f:
         print('reading lines')
         lines = json.load(f)
-        lines = [line.replace('\n', ' [SEP] ') for line in lines]  # 用[SEP]表示换行, 段落之间使用SEP表示段落结束
+        # lines = [line.replace('\n', ' [SEP] ') for line in lines]  # 用[SEP]表示换行, 段落之间使用SEP表示段落结束
+        lines = ['[SEP]' + line for line in lines]
     all_len = len(lines)
     if not os.path.exists(tokenized_data_path):
         os.mkdir(tokenized_data_path)
@@ -42,7 +43,7 @@ def main():
     parser.add_argument('--device', default='0,1,2,3', type=str, required=False, help='设置使用哪些显卡')
     parser.add_argument('--model_config', default='config/model_config_small.json', type=str, required=False,
                         help='选择模型参数')
-    parser.add_argument('--tokenizer_path', default='vocab.txt', type=str, required=False, help='选择词库')
+    parser.add_argument('--tokenizer_path', default='pre_poetry_model/vocab.txt', type=str, required=False, help='选择词库')
     parser.add_argument('--raw_data_path', default='data/train.json', type=str, required=False, help='原始训练语料')
     parser.add_argument('--tokenized_data_path', default='data/tokenized/', type=str, required=False,
                         help='tokenized语料存放位置')
