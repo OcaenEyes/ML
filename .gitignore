@@ -40,3 +40,11 @@ nlp/.idea/
 **/datasets/
 /alert/
 **/base-models/
+**/data/
+**/temp/
+**/model/
+**/tensorboard_summary/
+**/misc.xml
+**/ML.iml
+.idea/misc.xml
+.idea/ML.iml
