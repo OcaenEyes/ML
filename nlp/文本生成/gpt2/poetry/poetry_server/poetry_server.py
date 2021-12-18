@@ -70,8 +70,8 @@ def generate(n_ctx, model, context, length, tokenizer, temperature=1, top_k=0, t
 
 def text_generator(text, length):
     device = "cpu"
-    tokenizer = tokenization_bert.BertTokenizer(vocab_file="../base-models/pre_poetry_model/vocab.txt")
-    model = GPT2LMHeadModel.from_pretrained("../base-models/pre_poetry_model/")
+    tokenizer = tokenization_bert.BertTokenizer(vocab_file="pre_poetry_model/vocab.txt")
+    model = GPT2LMHeadModel.from_pretrained("pre_poetry_model/")
     model.to(device)
     model.eval()
     context_tokens = tokenizer.convert_tokens_to_ids(tokenizer.tokenize(text))
