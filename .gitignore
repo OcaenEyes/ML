@@ -49,3 +49,4 @@ nlp/.idea/
 .idea/misc.xml
 .idea/ML.iml
 **/models/
+**/pre_poetry_model/

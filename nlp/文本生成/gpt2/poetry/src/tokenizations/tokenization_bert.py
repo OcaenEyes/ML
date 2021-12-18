@@ -20,14 +20,11 @@ import collections
 import logging
 import os
 import unicodedata
-import thulac
 from io import open
 
 from transformers.tokenization_utils import PreTrainedTokenizer
 
 logger = logging.getLogger(__name__)
-
-lac = thulac.thulac(user_dict='tokenizations/thulac_dict/seg', seg_only=True)
 
 VOCAB_FILES_NAMES = {'vocab_file': 'vocab.txt'}
 
@@ -291,32 +288,18 @@ class BasicTokenizer(object):
 
         return ["".join(x) for x in output]
 
-    # def _tokenize_chinese_chars(self, text):
-    #     """Adds whitespace around any CJK character."""
-    #     output = []
-    #     for char in text:
-    #         cp = ord(char)
-    #         if self._is_chinese_char(cp) or char.isdigit():
-    #             output.append(" ")
-    #             output.append(char)
-    #             output.append(" ")
-    #         else:
-    #             output.append(char)
-    #     return "".join(output)
     def _tokenize_chinese_chars(self, text):
         """Adds whitespace around any CJK character."""
         output = []
         for char in text:
-            if char.isdigit():
+            cp = ord(char)
+            if self._is_chinese_char(cp) or char.isdigit():
                 output.append(" ")
                 output.append(char)
                 output.append(" ")
             else:
                 output.append(char)
-        text = "".join(output)
-        text = [item[0].strip() for item in lac.cut(text)]
-        text = [item for item in text if item]
-        return " ".join(text)
+        return "".join(output)
 
     def _is_chinese_char(self, cp):
         """Checks whether CP is the codepoint of a CJK character."""

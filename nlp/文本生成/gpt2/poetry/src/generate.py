@@ -132,14 +132,14 @@ def main():
     parser.add_argument('--device', default='0,1,2,3', type=str, required=False, help='生成设备')
     parser.add_argument('--length', default=-1, type=int, required=False, help='生成长度')
     parser.add_argument('--batch_size', default=1, type=int, required=False, help='生成的batch size')
-    parser.add_argument('--nsamples', default=10, type=int, required=False, help='生成几个样本')
+    parser.add_argument('--nsamples', default=1, type=int, required=False, help='生成几个样本')
     parser.add_argument('--temperature', default=1, type=float, required=False, help='生成温度')
     parser.add_argument('--topk', default=8, type=int, required=False, help='最高几选一')
     parser.add_argument('--topp', default=0, type=float, required=False, help='最高积累概率')
-    parser.add_argument('--model_config', default='pre_poetry_model/config.json', type=str, required=False,
+    parser.add_argument('--model_config', default='../base-models/pre_poetry_model/config.json', type=str, required=False,
                         help='模型参数')
-    parser.add_argument('--tokenizer_path', default='pre_poetry_model/vocab.txt', type=str, required=False, help='词表路径')
-    parser.add_argument('--model_path', default='pre_poetry_model', type=str, required=False, help='模型路径')
+    parser.add_argument('--tokenizer_path', default='../base-models/pre_poetry_model/vocab.txt', type=str, required=False, help='词表路径')
+    parser.add_argument('--model_path', default='../base-models/pre_poetry_model/', type=str, required=False, help='模型路径')
     parser.add_argument('--prefix', default='萧炎', type=str, required=False, help='生成文章的开头')
     parser.add_argument('--no_wordpiece', action='store_true', help='不做word piece切词')
     parser.add_argument('--segment', action='store_true', help='中文以词为单位')
@@ -165,7 +165,8 @@ def main():
     topp = args.topp
     repetition_penalty = args.repetition_penalty
 
-    device = "cuda" if torch.cuda.is_available() else "cpu"
+    # device = "cuda" if torch.cuda.is_available() else "cpu"
+    device = "cpu"
 
     tokenizer = tokenization_bert.BertTokenizer(vocab_file=args.tokenizer_path)
     model = GPT2LMHeadModel.from_pretrained(args.model_path)
