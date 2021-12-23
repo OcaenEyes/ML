@@ -1,3 +1,4 @@
+import random
 from collections import Counter
 import math
 import numpy as np
@@ -79,7 +80,7 @@ DATASET_PATH = './data/poetry.txt'
 # 每个epoch训练完成后，随机生成SHOW_NUM首古诗作为展示
 SHOW_NUM = 5
 # 最佳模型保存路径
-BEST_MODEL_PATH = './out/best_model.h5'
+BEST_MODEL_PATH = './out2/best_model.h5'
 # 句子最大长度
 MAX_LEN = 64
 # 最小词频
@@ -126,7 +127,7 @@ for line in poetry:
 # 过滤掉低频的词
 _tokens = [(token, count) for token, count in counter.items() if count >= min_word_frequency]
 # 按词频排序，只保留词列表
-_tokens = sorted(_tokens, key=lambda x: -x[1]) 
+_tokens = sorted(_tokens, key=lambda x: -x[1])
 # 去掉词频 只保留词列表
 _tokens = [token for token, count in _tokens]
 # 将特殊词和数据集拼接起来
@@ -167,7 +168,8 @@ class PoetryDataGenerator():
 
         # 计算填充长度
         if length is None:
-            length = max(map(len, data))
+            length = max(map(len,
+                             data))  # map() 会根据提供的函数对指定序列做映射。第一个参数 function 以参数序列中的每一个元素调用 function 函数，返回包含每次 function 函数返回值的新列表
 
         # 计算填充数据
         if padding is None:
@@ -238,45 +240,111 @@ def generate_poetry(tokenizer, model, head):
     punctuations = ['，', '。']
     punctuations_ids = [tokenizer.token_to_id(token) for token in punctuations]
 
-    # 村换生成诗的list
+    # 存放生成诗的list
     poetry = []
-
-    # 对于藏头诗的每一个字。都生成一个短句
-    for ch in head:
-        # 先记录这个字
-        poetry.append(ch)
-        # 将藏头字转为id
-        token_id = tokenizer.token_to_id(ch)
-        # 加入进列表
+    if head is None:
+        f_words = ['春', '夏', '秋', '冬', '水', '月', '花']
+        poetry.append(random.choice(f_words))
+        token_id = tokenizer.token_to_id(random.choice(f_words))
         token_ids.append(token_id)
+        for i in range(4):
+            # 生成短句
+            while True:
+                # 进行预测,只保留第一个样例（我们输入的样例数只有1）的、最后一个token的预测的、不包含[PAD][UNK][CLS]的概率分布
+                output = model(np.array([token_ids, ], dtype=np.int32))
+                _probas = output.numpy()[0, -1, 3:]
+                del output
 
-        # 生成短句
-        while True:
-            # 进行预测,只保留第一个样例（我们输入的样例数只有1）的、最后一个token的预测的、不包含[PAD][UNK][CLS]的概率分布
-            output = model(np.array([token_ids, ], dtype=np.int32))
-            _probas = output.numpy()[0, -1, 3:]
-            del output
+                # 按照出现概率，对所有的token倒序排列
+                p_args = _probas.argsort()[::-1][:100]
+                # 排列后的概率顺序
+                p = _probas[p_args]
 
-            # 按照出现概率，对所有的token倒序排列
-            p_args = _probas.argsort()[::-1][:100]
-            # 排列后的概率顺序
-            p = _probas[p_args]
+                # 对概率归一
+                p = p / sum(p)
 
-            # 对概率归一
-            p = p / sum(p)
+                # 再按照预测出的概率，随机选择一个词作为预测结果
+                target_index = np.random.choice(len(p), p=p)
+                target = p_args[target_index] + 3
 
-            # 再按照预测出的概率，随机选择一个词作为预测结果
-            target_index = np.random.choice(len(p), p=p)
-            target = p_args[target_index] + 3
+                # 保存
+                token_ids.append(target)
+                # 只有不是特殊字符时，才保存到poetry中
+                if target > 3:
+                    poetry.append(tokenizer.id_to_token(target))
 
-            # 保存
-            token_ids.append(target)
-            # 只有不是特殊字符时，才保存到poetry中
-            if target > 3:
-                poetry.append(tokenizer.id_to_token(target))
+                if target in punctuations_ids:
+                    break
+    elif len(head) == 1:
+        poetry.append(head)
+        token_id = tokenizer.token_to_id(head)
+        token_ids.append(token_id)
+        for i in range(4):
+            # 生成短句
+            while True:
+                # 进行预测,只保留第一个样例（我们输入的样例数只有1）的、最后一个token的预测的、不包含[PAD][UNK][CLS]的概率分布
+                output = model(np.array([token_ids, ], dtype=np.int32))
+                _probas = output.numpy()[0, -1, 3:]
+                del output
 
-            if target in punctuations_ids:
-                break
+                # 按照出现概率，对所有的token倒序排列
+                p_args = _probas.argsort()[::-1][:100]
+                # 排列后的概率顺序
+                p = _probas[p_args]
+
+                # 对概率归一
+                p = p / sum(p)
+
+                # 再按照预测出的概率，随机选择一个词作为预测结果
+                target_index = np.random.choice(len(p), p=p)
+                target = p_args[target_index] + 3
+
+                # 保存
+                token_ids.append(target)
+                # 只有不是特殊字符时，才保存到poetry中
+                if target > 3:
+                    poetry.append(tokenizer.id_to_token(target))
+
+                if target in punctuations_ids:
+                    break
+
+    else:
+        # 对于藏头诗的每一个字。都生成一个短句
+        for ch in head:
+            # 先记录这个字
+            poetry.append(ch)
+            # 将藏头字转为id
+            token_id = tokenizer.token_to_id(ch)
+            # 加入进列表
+            token_ids.append(token_id)
+
+            # 生成短句
+            while True:
+                # 进行预测,只保留第一个样例（我们输入的样例数只有1）的、最后一个token的预测的、不包含[PAD][UNK][CLS]的概率分布
+                output = model(np.array([token_ids, ], dtype=np.int32))
+                _probas = output.numpy()[0, -1, 3:]
+                del output
+
+                # 按照出现概率，对所有的token倒序排列
+                p_args = _probas.argsort()[::-1][:100]
+                # 排列后的概率顺序
+                p = _probas[p_args]
+
+                # 对概率归一
+                p = p / sum(p)
+
+                # 再按照预测出的概率，随机选择一个词作为预测结果
+                target_index = np.random.choice(len(p), p=p)
+                target = p_args[target_index] + 3
+
+                # 保存
+                token_ids.append(target)
+                # 只有不是特殊字符时，才保存到poetry中
+                if target > 3:
+                    poetry.append(tokenizer.id_to_token(target))
+
+                if target in punctuations_ids:
+                    break
     return ''.join(poetry)
 
 
@@ -361,11 +429,11 @@ def predict():
     """
     # 加载训练好的模型
     model = tf.keras.models.load_model(BEST_MODEL_PATH)
-    keywords = input('输入关键字:\n')
+    # keywords = input('输入关键字:\n')
 
     # 生成藏头诗
     for i in range(SHOW_NUM):
-        print(generate_poetry(tokenizer, model, head=("春花秋月")), '\n')
+        print(generate_poetry(tokenizer, model,head=None), '\n')
 
 
 if __name__ == "__main__":
