@@ -75,25 +75,29 @@ def text_generator(text, length):
     model.to(device)
     model.eval()
     context_tokens = tokenizer.convert_tokens_to_ids(tokenizer.tokenize(text))
-    out = generate(n_ctx=model.config.n_ctx,
-                   model=model,
-                   context=context_tokens,
-                   length=length,
-                   tokenizer=tokenizer,
-                   temperature=1,
-                   top_k=8,
-                   top_p=0,
-                   repitition_penalty=1.0,
-                   device=device)
-    gtext = tokenizer.convert_ids_to_tokens(out)
-    for i, item in enumerate(gtext):
-        if item == '[MASK]':
-            gtext[i] = ''
-        elif item == '[CLS]':
-            gtext[i] = '\n\n'
-        elif item == '[SEP]':
-            gtext[i] = '\n'
-    return ''.join(gtext).strip()
+    poems = []
+    for i in range(5):
+        out = generate(n_ctx=model.config.n_ctx,
+                       model=model,
+                       context=context_tokens,
+                       length=length,
+                       tokenizer=tokenizer,
+                       temperature=1,
+                       top_k=8,
+                       top_p=0,
+                       repitition_penalty=1.0,
+                       device=device)
+        gtext = tokenizer.convert_ids_to_tokens(out)
+        for i, item in enumerate(gtext):
+            if item == '[MASK]':
+                gtext[i] = ''
+            elif item == '[CLS]':
+                gtext[i] = ''
+            elif item == '[SEP]':
+                gtext[i] = ''
+        poem = ''.join(gtext).replace('##', '').strip()
+        poems.append(poem)
+    return poems
 
 
 @app.route("/api/v0.1/poetry", methods=['GET', 'POST'])
@@ -101,11 +105,16 @@ def poetry_create():
     text = request.args.get('text')
     length = 32
     res_text = text_generator(text, length)
+    poems = {}
+    for index, item in enumerate(res_text):
+        if len(item) > 32:
+            item = item[0:31]
+        poems["poem_%s" % index] = item
     res = {
-        'res_poetry': res_text
+        'res_poetry': poems
     }
     return jsonify(res)
 
 
 if __name__ == "__main__":
-    app.run(port=5002)
+    app.run(host='0.0.0.0', port=5002)
