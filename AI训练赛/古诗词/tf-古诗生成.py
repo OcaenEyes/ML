@@ -80,7 +80,7 @@ DATASET_PATH = './data/poetry.txt'
 # 每个epoch训练完成后，随机生成SHOW_NUM首古诗作为展示
 SHOW_NUM = 5
 # 最佳模型保存路径
-BEST_MODEL_PATH = './out2/best_model.h5'
+BEST_MODEL_PATH = './out/best_model.h5'
 # 句子最大长度
 MAX_LEN = 64
 # 最小词频
@@ -142,7 +142,7 @@ tokenizer = Tokenizer(token_id_dict)
 np.random.shuffle(poetry)
 
 
-class PoetryDataGenerator():
+class PoetryDataGenerator:
     """
     训练数据集生成
     """
@@ -242,7 +242,7 @@ def generate_poetry(tokenizer, model, head):
 
     # 存放生成诗的list
     poetry = []
-    if head is None:
+    if head == "":
         f_words = ['春', '夏', '秋', '冬', '水', '月', '花']
         poetry.append(random.choice(f_words))
         token_id = tokenizer.token_to_id(random.choice(f_words))
@@ -418,7 +418,7 @@ def train():
         data_generator.for_fit(),
         steps_per_epoch=data_generator.steps,
         workers=-1,
-        epochs=TRAIN_EPOCHS,
+        epochs=100,
         callbacks=[Evaluate()]
     )
 
@@ -429,11 +429,11 @@ def predict():
     """
     # 加载训练好的模型
     model = tf.keras.models.load_model(BEST_MODEL_PATH)
-    # keywords = input('输入关键字:\n')
+    keywords = input('输入关键字:\n')
 
     # 生成藏头诗
     for i in range(SHOW_NUM):
-        print(generate_poetry(tokenizer, model,head=None), '\n')
+        print(generate_poetry(tokenizer, model, head=keywords), '\n')
 
 
 if __name__ == "__main__":
