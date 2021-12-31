@@ -50,3 +50,4 @@ nlp/.idea/
 .idea/ML.iml
 **/models/
 **/pre_poetry_model/
+**/dataset/
