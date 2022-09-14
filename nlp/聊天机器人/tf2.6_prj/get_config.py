@@ -4,8 +4,9 @@ from configparser import SafeConfigParser
 
 def get_config():
     conf_file = os.getcwd() + "/seq2seq.ini"
+    print(conf_file)
     parser = SafeConfigParser()
-    parser.read(conf_file)
+    parser.read(conf_file,encoding='utf-8')
     _conf_ints = [(key, int(value)) for key, value in parser.items('ints')]
     _conf_floats = [(key, float(value)) for key, value in parser.items('floats')]
     _conf_strings = [(key, str(value)) for key, value in parser.items('strings')]
