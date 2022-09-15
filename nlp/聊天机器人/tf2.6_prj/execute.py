@@ -37,4 +37,4 @@ def read_data(path):
     lines = io.open(path, encoding="utf-8").read().strip().split("\n")
     word_pairs = [[preprocess_sentence(w) for w in l.split("\t")] for l in lines]
     input_lang,target_lang = zip(*word_pairs)
-    
+
