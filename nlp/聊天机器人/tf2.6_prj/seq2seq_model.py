@@ -247,6 +247,7 @@ def loss_function(real, pred):
 encoder = Encoder(vocab_inp_size, embedding_dim, units, BATCH_SIZE)
 decoder = Decoder(vocab_tar_size, embedding_dim, units, BATCH_SIZE)
 optimizer = tf.keras.optimizers.Adam()
+checkpoint = tf.train.Checkpoint(optimizer=optimizer, encoder=encoder, decoder=decoder)
 
 
 @tf.function
