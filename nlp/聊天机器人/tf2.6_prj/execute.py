@@ -24,7 +24,7 @@ writer = tf.summary.create_file_writer(log_dir)
 
 # 对训练语料进行处理，上下文分别加上start end表示
 def preprocess_sentence(w):
-    w = 'start' + w + 'end'
+    w = 'start ' + w + ' end'
     return w
 
 
@@ -50,20 +50,20 @@ def read_data(path):
     input_lang, target_lang = zip(*word_pairs)
     input_tokenizer = tokenize(gConf["vocab_inp_path"])
     target_tokenizer = tokenize(gConf["vocab_tar_path"])
-    input_tensor = input_tokenizer.texts_to_sequences(input_lang)
-    target_tensor = target_tokenizer.texts_to_sequences(target_lang)
+    inp_tensor = input_tokenizer.texts_to_sequences(input_lang)
+    tar_tensor = target_tokenizer.texts_to_sequences(target_lang)
 
-    input_tensor = tf.keras.preprocessing.sequence.pad_sequences(input_tensor, maxlen=max_length_inp, padding='post')
-    target_tensor = tf.keras.preprocessing.sequence.pad_sequences(target_tensor, maxlen=max_length_tar, padding='post')
+    inp_tensor = tf.keras.preprocessing.sequence.pad_sequences(inp_tensor, maxlen=max_length_inp, padding='post')
+    tar_tensor = tf.keras.preprocessing.sequence.pad_sequences(tar_tensor, maxlen=max_length_tar, padding='post')
 
-    return input_tensor, input_tokenizer, target_tensor, target_tokenizer
+    return inp_tensor, input_tokenizer, tar_tensor, target_tokenizer
 
 
 input_tensor, input_token, target_tensor, target_token = read_data(gConf["seq_data"])
 steps_per_epoch = len(input_tensor) // gConf["batch_size"]
 
 BUFFER_SIZE = len(input_tensor)
-dataset = tf.data.Dataset.from_tensor_slices((input_tensor, target_tensor).shuffle(BUFFER_SIZE))
+dataset = tf.data.Dataset.from_tensor_slices((input_tensor, target_tensor)).shuffle(BUFFER_SIZE)
 dataset = dataset.batch(BATCH_SIZE, drop_remainder=True)
 
 encode_hidden = seq2seq_model.encoder.initialize_hidden_state()
@@ -77,7 +77,11 @@ def train():
 
     # 如果有已经有预训练的模型，则加载预训练模型继续训练
     checkpoint_dir = gConf["model_data"]
-    ckpt = tf.io.gfile.listdir(checkpoint_dir)
+    try:
+        ckpt = tf.io.gfile.listdir(checkpoint_dir)
+    except Exception as e:
+        print(e)
+        ckpt = False
     if ckpt:
         print("重新加载预训练模型")
         seq2seq_model.checkpoint.restore(tf.train.latest_checkpoint(checkpoint_dir))
@@ -88,7 +92,7 @@ def train():
     epoch = 0
     train_epoch = gConf["train_epoch"]
 
-    # 开始进行循环训练，当loss 小于设置的min_loss超参时 停止训练
+    # 开始进行循环训练
     while epoch < train_epoch:
         start_time_epoch = time.time()
         total_loss = 0
@@ -98,12 +102,12 @@ def train():
             total_loss += batch_loss
             print("epoch:{} batch:{} batch_loss:{}".format(epoch, batch, batch_loss))
         # 结束一个epoch的训练后， 更新current_loss， 计算本epoch中每步训练平均耗时、loss值
-        step_time_epoch = (time.time() - start_time) / steps_per_epoch
+        step_time_epoch = (time.time() - start_time_epoch) / steps_per_epoch
         step_loss = total_loss / steps_per_epoch
         current_steps = + steps_per_epoch
         epoch_total_time = time.time() - start_time
-        print("训练总步数：{} 总耗时：{} epoch平均每步耗时：{} 平均每步loss：{.4f}".format(current_steps, total_loss, step_time_epoch,
-                                                                     step_loss))
+        print("训练总步数：{} 总耗时：{} epoch平均每步耗时：{} 平均每步loss：{:.4f}".format(current_steps, epoch_total_time, step_time_epoch,
+                                                                      step_loss))
 
         # 将本epoch训练的模型保存，更新模型文件
         seq2seq_model.checkpoint.save(file_prefix=checkpoint_prefix)
@@ -121,4 +125,49 @@ def predict(sentence):
 
     # 加载预训练模型
     checkpoint_dir = gConf["model_data"]
-    seq2seq_model.checkpoint.restore()
+    seq2seq_model.checkpoint.restore(tf.train.latest_checkpoint(checkpoint_dir))
+    # 对输入字句进行处理，加上 start end标示
+    sentence = preprocess_sentence(sentence)
+
+    # 进行word2number的转换
+    inputs = input_tokenizer.texts_to_sequences(sentence)
+    # 进行padding补全
+    inputs = tf.keras.preprocessing.sequence.pad_sequences([inputs], maxlen=max_length_inp, padding='post')
+    inputs = tf.convert_to_tensor(inputs)
+    result = ''
+
+    # 初始化一个中间状态
+    hidden = [tf.zeros((1, units))]
+    # 对输入上文进行encoder编码，提取特征
+    encoder_out, encoder_hidden = seq2seq_model.encoder(inputs, hidden)
+    decoder_hidden = encoder_hidden
+    # decoder的输入从 start的对应id 开始正向输入
+    decoder_input = tf.expand_dims([target_tokenizer.word_index['start0']], 0)
+    # 在最大的语句长度范围内，使用模型中的decoder进行循环解码
+    for t in range(max_length_tar):
+        # 获得解码结果，并使用argmax确定概率最大的id
+        predictions, decoder_hidden, attention_weights = seq2seq_model.decoder(decoder_input, decoder_hidden)
+        predicted_id = tf.argmax(predictions[0].numpy())
+        # 判断当前id是否为 语句结束表示， 如果是则停止循环解码， 否则进行number2word的转换，并进行语句的拼接
+        if target_tokenizer.index_word[predicted_id] == 'end':
+            break
+
+        result += str(target_tokenizer.index_word[predicted_id]) + ' '
+        # 将预测得到的id作为下一个时刻的decoder输入
+        decoder_input = tf.expand_dims([predicted_id], 0)
+    return result
+
+
+# main函数的入口，根据超惨设置的模式启动不同的工作模式
+if __name__ == "__main__":
+    # 如果启动python时指定了超参文件，则从超参文件中读取超参， 否则从默认的超参文件中读取
+    if len(sys.argv) - 1:
+        gConf = get_config(sys.argv)
+    else:
+        gConf = get_config()
+    print("\n>> 执行器模式： %s \n" % (gConf["mode"]))
+    if gConf["mode"] == "train":
+        print("开始进行模型训练")
+        train()
+    elif gConf["mode"] == "serve":
+        print("当前为服务模式，请使用web程序")

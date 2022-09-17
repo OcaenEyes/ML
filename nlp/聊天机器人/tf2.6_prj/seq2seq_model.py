@@ -140,7 +140,7 @@ class BahdanauAttention(tf.keras.Model):
         # context_vector的形状为: (batch_size, hidden_size)
         context_vector = attention_weights * features
         # 将乘机后的context_vector按行相加，进行压缩得到最终的context_vector
-        context_vector = tf.reduce_sum(context_vector)
+        context_vector = tf.reduce_sum(context_vector, axis=1)
         return context_vector, attention_weights
 
 
@@ -209,7 +209,7 @@ class Decoder(tf.keras.Model):
         # print("tf.expand_dims(context_vector, 1).shape",tf.expand_dims(context_vector, 1).shape) #(64, 1, 1024)
 
         # 将这种'影响程度'与输入x拼接(这个操作也是注意力计算规则的一部分)（拼接上下文语境与decoder的输入embedding，并送入gru中）
-        x = tf.concat([tf.expand_dims(context_vector, 1), x])
+        x = tf.concat([tf.expand_dims(context_vector, 1), x], axis=-1)
         # print("x2.shape",x.shape) #(64, 1, 1280)
 
         # 将新的x输入到gru层中得到输出
@@ -262,12 +262,12 @@ def training_step(inp, targ, target_lang, encode_hidden):
             predictions, decode_hidden, _ = decoder(decode_input, decode_hidden, encode_output)
 
             loss += loss_function(targ[:, t], predictions)
-            decode_input = tf.expand_dims(target_lang[:, t], 1)
+            decode_input = tf.expand_dims(targ[:, t], 1)
 
     step_loss = (loss / int(targ.shape[1]))
 
     variables = encoder.trainable_variables + decoder.trainable_variables
-    gradients = tape.gradients(loss, variables)
+    gradients = tape.gradient(loss, variables)
 
     optimizer.apply_gradients(zip(gradients, variables))
 

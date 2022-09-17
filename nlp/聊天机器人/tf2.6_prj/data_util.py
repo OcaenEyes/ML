@@ -25,10 +25,10 @@ def predata_util():
         exit()
 
     # 新建一个文件，用于存放处理后的对话语料
-    seq_train_file = open(seq_train, "w",encoding="utf-8")
+    seq_train_file = open(seq_train, "w", encoding="utf-8")
     # 打开要处理的语料，逐条读取并进行数据处理
     with open(conv_path, encoding="utf-8") as f:
-        one_conv = ""  # 存储一次完整的对话
+        one_conv = ""  # 存储一次整的对话
         i = 0
         # 开始循环语料
         for line in f:
@@ -39,7 +39,7 @@ def predata_util():
             # 判断是否为一段对话的开始，如果是，则把刚处理过的语料保存下来
             if line[0] == gConf["e"]:
                 if one_conv:
-                    seq_train_file.write(one_conv[:-1] + "\n")
+                    seq_train_file.write(one_conv[:-1] + '\n')
                     i = i + 1
                     if i % 1000 == 0:
                         print("处理进度：", i)
@@ -47,7 +47,7 @@ def predata_util():
 
             # 判断是否正在处理对华语剧，如果是则进行语料的拼接处理， 以及分词
             elif line[0] == gConf['m']:
-                one_conv = one_conv + str(" ".join(jieba.cut(line.split(" ")[1]))) + "\t"  # 存储一次问答
+                one_conv = one_conv + str(" ".join(jieba.cut(line.split(' ')[1]))) + '\t'  # 存储一次问答
 
     # 处理完成，关闭文件
     seq_train_file.close()
@@ -68,15 +68,16 @@ def create_vocab(lang, vocab_path, vocab_size):
 
 
 def preprocess_sentence(w):
-    w = 'start' + w + 'end'
+    w = 'start ' + w + ' end'
     return w
 
 
-predata_util()
+if __name__ == "__main__":
+    # predata_util()
 
-lines = io.open(seq_train,encoding="utf-8").readlines()
-word_pairs = [[preprocess_sentence(w) for w in l.split("\t")] for l in lines]
-input_lang,target_lang = zip(*word_pairs)
+    lines = io.open(seq_train, encoding="utf-8").readlines()
+    word_pairs = [[preprocess_sentence(w) for w in l.split('\t')] for l in lines]
+    input_lang, target_lang = zip(*word_pairs)
 
-create_vocab(input_lang,vocab_inp_path,vocab_inp_size)
-create_vocab(target_lang,vocab_tar_path,vocab_tar_size)
+    create_vocab(input_lang, vocab_inp_path, vocab_inp_size)
+    create_vocab(target_lang, vocab_tar_path, vocab_tar_size)
