@@ -39,3 +39,5 @@ AI训练赛/微博新闻分析/微博新闻数据集.csv
 **/dataset/
 **/outputs/
 *.h5
+**/log_dir/
+**/model_data/

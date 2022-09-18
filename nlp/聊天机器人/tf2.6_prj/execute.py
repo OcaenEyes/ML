@@ -127,12 +127,12 @@ def predict(sentence):
     checkpoint_dir = gConf["model_data"]
     seq2seq_model.checkpoint.restore(tf.train.latest_checkpoint(checkpoint_dir))
     # 对输入字句进行处理，加上 start end标示
-    sentence = preprocess_sentence(sentence)
+    # sentence = preprocess_sentence(sentence)
 
     # 进行word2number的转换
-    inputs = input_tokenizer.texts_to_sequences(sentence)
+    inputs = input_tokenizer.texts_to_sequences(tuple([sentence]))
     # 进行padding补全
-    inputs = tf.keras.preprocessing.sequence.pad_sequences([inputs], maxlen=max_length_inp, padding='post')
+    inputs = tf.keras.preprocessing.sequence.pad_sequences(inputs, maxlen=max_length_inp, padding='post')
     inputs = tf.convert_to_tensor(inputs)
     result = ''
 
@@ -142,19 +142,20 @@ def predict(sentence):
     encoder_out, encoder_hidden = seq2seq_model.encoder(inputs, hidden)
     decoder_hidden = encoder_hidden
     # decoder的输入从 start的对应id 开始正向输入
-    decoder_input = tf.expand_dims([target_tokenizer.word_index['start0']], 0)
+    decoder_input = tf.expand_dims([target_tokenizer.word_index['start']], 0)
     # 在最大的语句长度范围内，使用模型中的decoder进行循环解码
     for t in range(max_length_tar):
         # 获得解码结果，并使用argmax确定概率最大的id
-        predictions, decoder_hidden, attention_weights = seq2seq_model.decoder(decoder_input, decoder_hidden)
+        predictions, decoder_hidden, attention_weights = seq2seq_model.decoder(decoder_input, decoder_hidden,
+                                                                               encoder_out)
         predicted_id = tf.argmax(predictions[0].numpy())
         # 判断当前id是否为 语句结束表示， 如果是则停止循环解码， 否则进行number2word的转换，并进行语句的拼接
-        if target_tokenizer.index_word[predicted_id] == 'end':
+        if target_tokenizer.index_word[predicted_id.numpy()] == 'end':
             break
 
-        result += str(target_tokenizer.index_word[predicted_id]) + ' '
+        result += str(target_tokenizer.index_word[predicted_id.numpy()]) + ' '
         # 将预测得到的id作为下一个时刻的decoder输入
-        decoder_input = tf.expand_dims([predicted_id], 0)
+        decoder_input = tf.expand_dims([predicted_id.numpy()], 0)
     return result
 
 

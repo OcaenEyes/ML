@@ -1,7 +1,7 @@
 import tensorflow as tf
 from get_config import get_config
 
-tf.config.experimental_run_functions_eagerly(True)
+tf.config.run_functions_eagerly(True)
 
 # 初始化超参字典
 gConf = {}
