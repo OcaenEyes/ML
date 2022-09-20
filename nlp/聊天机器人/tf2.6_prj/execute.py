@@ -127,7 +127,7 @@ def predict(sentence):
     checkpoint_dir = gConf["model_data"]
     seq2seq_model.checkpoint.restore(tf.train.latest_checkpoint(checkpoint_dir))
     # 对输入字句进行处理，加上 start end标示
-    # sentence = preprocess_sentence(sentence)
+    sentence = preprocess_sentence(sentence)
 
     # 进行word2number的转换
     inputs = input_tokenizer.texts_to_sequences(tuple([sentence]))

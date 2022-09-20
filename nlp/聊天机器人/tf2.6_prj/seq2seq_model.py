@@ -19,7 +19,7 @@ BATCH_SIZE = gConf["batch_size"]
 class Encoder(tf.keras.Model):
     # 初始化参数，对默认参数进行初始化
 
-    def __init__(self, vocab_size, emdedding_dim, encode_units, batch_size):
+    def __init__(self, vocab_size, embedding_dim, encode_units, batch_size):
         """
         @param vocab_size:
         @param emdedding_dim:
