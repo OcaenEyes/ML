@@ -1,0 +1,6 @@
+librosa
+numpy
+opencv-python==4.5.5.62
+opencv-contrib-python
+tqdm
+numba

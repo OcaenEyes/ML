@@ -12191,3 +12191,252 @@
 2023-04-16 17:50:23.775 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 8 len 2 l2r score: -8.468400478363037 ctc_score: -5.628027059634278 reverse_weight: 0.0
 2023-04-16 17:50:23.775 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 9 len 1 l2r score: -8.033174991607666 ctc_score: -5.785169639168443 reverse_weight: 0.0
 2023-04-16 17:50:23.775 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:608 - result: ((873, 873, 873), -3.800831578638068)
+2023-04-16 18:18:58.414 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:563 - hyps pad: Tensor(shape=[10, 9], dtype=int64, place=Place(gpu:0), stop_gradient=True,
+       [[5536, 3497, 179 , 337 , 3497, 29  , 179 , 337 , 5536],
+        [5536, 3497, 179 , 337 , 3497, 29  , 179 , 5536, 5536],
+        [5536, 3497, 29  , 179 , 337 , 3497, 29  , 179 , 337 ],
+        [5536, 29  , 179 , 337 , 3497, 29  , 179 , 5536, 5536],
+        [5536, 3497, 29  , 179 , 337 , 3497, 29  , 179 , 5536],
+        [5536, 3497, 179 , 337 , 1519, 29  , 179 , 5536, 5536],
+        [5536, 3497, 179 , 337 , 3497, 35  , 179 , 5536, 5536],
+        [5536, 29  , 179 , 337 , 1519, 29  , 179 , 5536, 5536],
+        [5536, 3497, 179 , 337 , 3497, 179 , 5536, 5536, 5536]]) 5536 5536 -1
+2023-04-16 18:18:58.429 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 0 len 7 l2r score: -4.565349578857422 ctc_score: -4.015692185903274 reverse_weight: 0.0
+2023-04-16 18:18:58.429 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 1 len 6 l2r score: -7.231434345245361 ctc_score: -4.214387379987299 reverse_weight: 0.0
+2023-04-16 18:18:58.429 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 2 len 7 l2r score: -3.5653467178344727 ctc_score: -4.283155782053361 reverse_weight: 0.0
+2023-04-16 18:18:58.429 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 3 len 8 l2r score: -2.2798261642456055 ctc_score: -4.442066871371972 reverse_weight: 0.0
+2023-04-16 18:18:58.431 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 4 len 6 l2r score: -6.231831073760986 ctc_score: -4.481850976137386 reverse_weight: 0.0
+2023-04-16 18:18:58.431 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 5 len 7 l2r score: -4.963359832763672 ctc_score: -4.640762065455998 reverse_weight: 0.0
+2023-04-16 18:18:58.431 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 6 len 6 l2r score: -11.486979007720947 ctc_score: -4.757886674800038 reverse_weight: 0.0
+2023-04-16 18:18:58.431 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 7 len 6 l2r score: -14.304741859436035 ctc_score: -4.893061976345025 reverse_weight: 0.0
+2023-04-16 18:18:58.431 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 8 len 6 l2r score: -8.617044925689697 ctc_score: -5.019328710987545 reverse_weight: 0.0
+2023-04-16 18:18:58.431 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 9 len 5 l2r score: -9.010898113250732 ctc_score: -5.020981986892272 reverse_weight: 0.0
+2023-04-16 18:18:58.432 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:608 - result: ((3497, 29, 179, 337, 3497, 29, 179, 337), -4.442066871371972)
+2023-04-16 18:19:08.562 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:563 - hyps pad: Tensor(shape=[10, 9], dtype=int64, place=Place(gpu:0), stop_gradient=True,
+       [[5536, 2304, 2198, 216 , 3184, 3220, 1040, 2786, 2945],
+        [5536, 2304, 4934, 216 , 3184, 3220, 1040, 2786, 2945],
+        [5536, 2304, 4768, 216 , 3184, 3220, 1040, 2786, 2945],
+        [5536, 2304, 1429, 216 , 3184, 3220, 1040, 2786, 2945],
+        [5536, 2304, 2198, 216 , 3184, 607 , 1040, 2786, 2945],
+        [5536, 2304, 2198, 216 , 3184, 3617, 1040, 2786, 2945],
+        [5536, 2304, 4934, 216 , 3184, 607 , 1040, 2786, 2945],
+        [5536, 2304, 4934, 216 , 3184, 3617, 1040, 2786, 2945],
+        [5536, 2304, 4768, 216 , 3184, 607 , 1040, 2786, 2945],
+        [5536, 2304, 1429, 216 , 3184, 607 , 1040, 2786, 2945]]) 5536 5536 -1
+2023-04-16 18:19:08.577 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 0 len 8 l2r score: -7.11544942855835 ctc_score: -2.971643082018192 reverse_weight: 0.0
+2023-04-16 18:19:08.577 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 1 len 8 l2r score: -7.886993885040283 ctc_score: -3.123432637185939 reverse_weight: 0.0
+2023-04-16 18:19:08.577 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 2 len 8 l2r score: -10.499783039093018 ctc_score: -3.4752409480682536 reverse_weight: 0.0
+2023-04-16 18:19:08.577 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 3 len 8 l2r score: -13.369401931762695 ctc_score: -3.5692821658804967 reverse_weight: 0.0
+2023-04-16 18:19:08.577 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 4 len 8 l2r score: -9.85568904876709 ctc_score: -3.7040883066945405 reverse_weight: 0.0
+2023-04-16 18:19:08.577 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 5 len 8 l2r score: -9.923190116882324 ctc_score: -3.8524249276043667 reverse_weight: 0.0
+2023-04-16 18:19:08.577 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 6 len 8 l2r score: -10.002583026885986 ctc_score: -3.8558778618622873 reverse_weight: 0.0
+2023-04-16 18:19:08.578 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 7 len 8 l2r score: -10.232816219329834 ctc_score: -4.004214482772113 reverse_weight: 0.0
+2023-04-16 18:19:08.578 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 8 len 8 l2r score: -13.029819011688232 ctc_score: -4.207686172744602 reverse_weight: 0.0
+2023-04-16 18:19:08.578 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 9 len 8 l2r score: -16.141375064849854 ctc_score: -4.301727390556845 reverse_weight: 0.0
+2023-04-16 18:19:08.578 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:608 - result: ((2304, 2198, 216, 3184, 3220, 1040, 2786, 2945), -2.971643082018192)
+2023-04-16 18:19:19.425 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:563 - hyps pad: Tensor(shape=[10, 6], dtype=int64, place=Place(gpu:0), stop_gradient=True,
+       [[5536, 1073, 1073, 37  , 262 , 1719],
+        [5536, 1073, 1073, 1037, 262 , 1719],
+        [5536, 1073, 1073, 37  , 508 , 1719],
+        [5536, 1073, 1073, 37  , 2381, 1719],
+        [5536, 1073, 1073, 37  , 262 , 5536],
+        [5536, 1073, 1073, 37  , 262 , 5246],
+        [5536, 1073, 1073, 37  , 1597, 1719],
+        [5536, 1073, 1073, 37  , 1076, 1719],
+        [5536, 1073, 1073, 1037, 508 , 1719],
+        [5536, 1073, 1073, 37  , 262 , 1649]]) 5536 5536 -1
+2023-04-16 18:19:19.440 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 0 len 5 l2r score: -7.875589370727539 ctc_score: -4.110291116969908 reverse_weight: 0.0
+2023-04-16 18:19:19.440 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 1 len 5 l2r score: -8.155370235443115 ctc_score: -4.649145825962808 reverse_weight: 0.0
+2023-04-16 18:19:19.441 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 2 len 5 l2r score: -10.457313060760498 ctc_score: -4.854754038363185 reverse_weight: 0.0
+2023-04-16 18:19:19.441 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 3 len 5 l2r score: -7.329291820526123 ctc_score: -5.056973049657919 reverse_weight: 0.0
+2023-04-16 18:19:19.441 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 4 len 4 l2r score: -9.171979904174805 ctc_score: -5.068634376739083 reverse_weight: 0.0
+2023-04-16 18:19:19.441 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 5 len 5 l2r score: -11.811662673950195 ctc_score: -5.078038559173165 reverse_weight: 0.0
+2023-04-16 18:19:19.441 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 6 len 5 l2r score: -12.16195011138916 ctc_score: -5.221816404304916 reverse_weight: 0.0
+2023-04-16 18:19:19.442 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 7 len 5 l2r score: -8.061367988586426 ctc_score: -5.313845081622467 reverse_weight: 0.0
+2023-04-16 18:19:19.442 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 8 len 5 l2r score: -10.661646366119385 ctc_score: -5.392925533956952 reverse_weight: 0.0
+2023-04-16 18:19:19.442 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 9 len 5 l2r score: -15.842429161071777 ctc_score: -5.4009746172175985 reverse_weight: 0.0
+2023-04-16 18:19:19.442 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:608 - result: ((1073, 1073, 37, 2381, 1719), -5.056973049657919)
+2023-04-16 18:19:32.244 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:563 - hyps pad: Tensor(shape=[10, 25], dtype=int64, place=Place(gpu:0), stop_gradient=True,
+       [[5536, 146 , 2141, 3829, 2108, 1719, 927 , 3228, 3081, 4388, 3184, 2139,
+         2108, 4381, 4381, 1770, 3081, 4388, 3184, 3829, 2108, 1633, 3228, 29  ,
+         36  ],
+        [5536, 146 , 2141, 3829, 2108, 1719, 927 , 3228, 3081, 4388, 3184, 3829,
+         2108, 4381, 4381, 1770, 3081, 4388, 3184, 3829, 2108, 1633, 3228, 29  ,
+         36  ],
+        [5536, 146 , 2141, 3829, 2108, 1719, 927 , 3228, 3081, 4388, 3184, 2139,
+         2108, 5353, 4381, 1770, 3081, 4388, 3184, 3829, 2108, 1633, 3228, 29  ,
+         36  ],
+        [5536, 1209, 2141, 3829, 2108, 1719, 927 , 3228, 3081, 4388, 3184, 2139,
+         2108, 4381, 4381, 1770, 3081, 4388, 3184, 3829, 2108, 1633, 3228, 29  ,
+         36  ],
+        [5536, 146 , 2141, 3829, 2108, 1719, 927 , 3228, 3081, 4388, 3184, 2139,
+         2108, 5213, 4381, 1770, 3081, 4388, 3184, 3829, 2108, 1633, 3228, 29  ,
+         36  ],
+        [5536, 146 , 2141, 3829, 2108, 1719, 927 , 3228, 3081, 4388, 3184, 3829,
+         2108, 5353, 4381, 1770, 3081, 4388, 3184, 3829, 2108, 1633, 3228, 29  ,
+         36  ],
+        [5536, 1209, 2141, 3829, 2108, 1719, 927 , 3228, 3081, 4388, 3184, 3829,
+         2108, 4381, 4381, 1770, 3081, 4388, 3184, 3829, 2108, 1633, 3228, 29  ,
+         36  ],
+        [5536, 1209, 2141, 3829, 2108, 1719, 927 , 3228, 3081, 4388, 3184, 2139,
+         2108, 5353, 4381, 1770, 3081, 4388, 3184, 3829, 2108, 1633, 3228, 29  ,
+         36  ],
+        [5536, 146 , 2141, 3829, 2108, 1719, 927 , 3228, 3081, 4388, 3184, 2139,
+         2108, 216 , 4381, 1770, 3081, 4388, 3184, 3829, 2108, 1633, 3228, 29  ,
+         36  ],
+        [5536, 146 , 2141, 3829, 2108, 1719, 927 , 3228, 3081, 4388, 3184, 3829,
+         2108, 5213, 4381, 1770, 3081, 4388, 3184, 3829, 2108, 1633, 3228, 29  ,
+         36  ]]) 5536 5536 -1
+2023-04-16 18:19:32.263 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 0 len 24 l2r score: -22.528557300567627 ctc_score: -7.631369793075882 reverse_weight: 0.0
+2023-04-16 18:19:32.263 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 1 len 24 l2r score: -20.764142990112305 ctc_score: -7.818810756360536 reverse_weight: 0.0
+2023-04-16 18:19:32.263 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 2 len 24 l2r score: -22.2410888671875 ctc_score: -7.886912274741297 reverse_weight: 0.0
+2023-04-16 18:19:32.263 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 3 len 24 l2r score: -22.823975563049316 ctc_score: -7.9340587521773855 reverse_weight: 0.0
+2023-04-16 18:19:32.263 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 4 len 24 l2r score: -24.107011795043945 ctc_score: -8.033176059413723 reverse_weight: 0.0
+2023-04-16 18:19:32.263 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 5 len 24 l2r score: -20.55098295211792 ctc_score: -8.074353238025955 reverse_weight: 0.0
+2023-04-16 18:19:32.264 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 6 len 24 l2r score: -21.113658905029297 ctc_score: -8.121499715462042 reverse_weight: 0.0
+2023-04-16 18:19:32.264 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 7 len 24 l2r score: -22.37966537475586 ctc_score: -8.189601233842804 reverse_weight: 0.0
+2023-04-16 18:19:32.264 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 8 len 24 l2r score: -18.299254417419434 ctc_score: -8.208578132604794 reverse_weight: 0.0
+2023-04-16 18:19:32.264 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 9 len 24 l2r score: -21.342352867126465 ctc_score: -8.220617022698377 reverse_weight: 0.0
+2023-04-16 18:19:32.265 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:608 - result: ((146, 2141, 3829, 2108, 1719, 927, 3228, 3081, 4388, 3184, 2139, 2108, 216, 4381, 1770, 3081, 4388, 3184, 3829, 2108, 1633, 3228, 29, 36), -8.208578132604794)
+2023-04-16 18:19:45.156 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:563 - hyps pad: Tensor(shape=[10, 12], dtype=int64, place=Place(gpu:0), stop_gradient=True,
+       [[5536, 199 , 2084, 1719, 612 , 156 , 637 , 146 , 1918, 5078, 2084, 641 ],
+        [5536, 2084, 1719, 612 , 156 , 637 , 146 , 1918, 5078, 2084, 641 , 5536],
+        [5536, 199 , 1719, 612 , 156 , 637 , 146 , 1918, 5078, 2084, 641 , 5536],
+        [5536, 1719, 612 , 156 , 637 , 146 , 1918, 5078, 2084, 641 , 5536, 5536],
+        [5536, 199 , 2084, 1719, 612 , 156 , 637 , 1075, 1918, 5078, 2084, 641 ],
+        [5536, 2084, 1719, 612 , 156 , 637 , 1075, 1918, 5078, 2084, 641 , 5536],
+        [5536, 199 , 1719, 612 , 156 , 637 , 1075, 1918, 5078, 2084, 641 , 5536],
+        [5536, 1719, 612 , 156 , 637 , 1075, 1918, 5078, 2084, 641 , 5536, 5536],
+        [5536, 199 , 2084, 1719, 612 , 156 , 637 , 146 , 1918, 5078, 2084, 98  ],
+        [5536, 2084, 1719, 612 , 156 , 637 , 146 , 1918, 5078, 2084, 98  , 5536]]) 5536 5536 -1
+2023-04-16 18:19:45.170 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 0 len 11 l2r score: -3.2977237701416016 ctc_score: -2.9625469331905703 reverse_weight: 0.0
+2023-04-16 18:19:45.170 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 1 len 10 l2r score: -3.709444046020508 ctc_score: -3.008909265686022 reverse_weight: 0.0
+2023-04-16 18:19:45.170 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 2 len 10 l2r score: -10.043766021728516 ctc_score: -3.0176559003141903 reverse_weight: 0.0
+2023-04-16 18:19:45.170 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 3 len 9 l2r score: -2.81912899017334 ctc_score: -3.066552282446223 reverse_weight: 0.0
+2023-04-16 18:19:45.171 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 4 len 11 l2r score: -3.9684791564941406 ctc_score: -3.4745206295647337 reverse_weight: 0.0
+2023-04-16 18:19:45.171 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 5 len 10 l2r score: -4.29290771484375 ctc_score: -3.5208829620601856 reverse_weight: 0.0
+2023-04-16 18:19:45.171 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 6 len 10 l2r score: -10.682267189025879 ctc_score: -3.5296295966883537 reverse_weight: 0.0
+2023-04-16 18:19:45.171 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 7 len 9 l2r score: -3.4276657104492188 ctc_score: -3.5785259788203865 reverse_weight: 0.0
+2023-04-16 18:19:45.171 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 8 len 11 l2r score: -6.320614814758301 ctc_score: -3.6339500075490485 reverse_weight: 0.0
+2023-04-16 18:19:45.171 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 9 len 10 l2r score: -7.230159759521484 ctc_score: -3.6803123400445004 reverse_weight: 0.0
+2023-04-16 18:19:45.172 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:608 - result: ((1719, 612, 156, 637, 146, 1918, 5078, 2084, 641), -3.066552282446223)
+2023-04-16 18:19:50.444 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:563 - hyps pad: Tensor(shape=[10, 11], dtype=int64, place=Place(gpu:0), stop_gradient=True,
+       [[5536, 216 , 3228, 4764, 4750, 586 , 2089, 1472, 2180, 4480, 5536],
+        [5536, 216 , 3228, 4764, 4750, 586 , 2089, 3354, 2180, 4480, 5536],
+        [5536, 216 , 3228, 4764, 4750, 586 , 2089, 1472, 98  , 4480, 5536],
+        [5536, 216 , 3228, 4764, 4750, 586 , 2089, 3354, 98  , 4480, 5536],
+        [5536, 216 , 3228, 4764, 4750, 586 , 2089, 4620, 2180, 4480, 5536],
+        [5536, 216 , 3228, 4764, 4750, 586 , 381 , 1472, 2180, 4480, 5536],
+        [5536, 216 , 3228, 4764, 4750, 586 , 2089, 2445, 2180, 4480, 5536],
+        [5536, 216 , 3228, 4764, 4750, 586 , 2089, 1472, 2180, 1719, 4480],
+        [5536, 216 , 3228, 4764, 4750, 586 , 381 , 3354, 2180, 4480, 5536],
+        [5536, 216 , 3228, 4764, 4750, 586 , 2089, 4620, 98  , 4480, 5536]]) 5536 5536 -1
+2023-04-16 18:19:50.458 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 0 len 9 l2r score: -17.369673252105713 ctc_score: -2.823632179945366 reverse_weight: 0.0
+2023-04-16 18:19:50.458 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 1 len 9 l2r score: -6.513494491577148 ctc_score: -3.322700440138237 reverse_weight: 0.0
+2023-04-16 18:19:50.458 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 2 len 9 l2r score: -10.425000190734863 ctc_score: -3.4461182158552286 reverse_weight: 0.0
+2023-04-16 18:19:50.459 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 3 len 9 l2r score: -2.3988027572631836 ctc_score: -3.9451864760480997 reverse_weight: 0.0
+2023-04-16 18:19:50.459 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 4 len 9 l2r score: -10.053591251373291 ctc_score: -3.9891622788582906 reverse_weight: 0.0
+2023-04-16 18:19:50.459 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 5 len 9 l2r score: -14.22550630569458 ctc_score: -4.060340645951426 reverse_weight: 0.0
+2023-04-16 18:19:50.459 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 6 len 9 l2r score: -11.035070896148682 ctc_score: -4.349189448170008 reverse_weight: 0.0
+2023-04-16 18:19:50.459 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 7 len 10 l2r score: -23.326560497283936 ctc_score: -4.4523395041608405 reverse_weight: 0.0
+2023-04-16 18:19:50.459 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 8 len 9 l2r score: -16.11643886566162 ctc_score: -4.559408906144297 reverse_weight: 0.0
+2023-04-16 18:19:50.460 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 9 len 9 l2r score: -11.7129807472229 ctc_score: -4.6116483147681535 reverse_weight: 0.0
+2023-04-16 18:19:50.460 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:608 - result: ((216, 3228, 4764, 4750, 586, 2089, 3354, 98, 4480), -3.9451864760480997)
+2023-04-16 18:19:53.917 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:563 - hyps pad: Tensor(shape=[10, 7], dtype=int64, place=Place(gpu:0), stop_gradient=True,
+       [[5536, 927 , 4764, 57  , 931 , 2039, 5536],
+        [5536, 4850, 4764, 57  , 931 , 2039, 5536],
+        [5536, 324 , 4764, 57  , 931 , 2039, 5536],
+        [5536, 2180, 4764, 57  , 931 , 2039, 5536],
+        [5536, 4764, 57  , 931 , 2039, 5536, 5536],
+        [5536, 3228, 4764, 57  , 931 , 2039, 5536],
+        [5536, 927 , 4764, 3398, 931 , 2039, 5536],
+        [5536, 927 , 4764, 57  , 72  , 931 , 2039],
+        [5536, 927 , 4850, 57  , 931 , 2039, 5536],
+        [5536, 927 , 4764, 57  , 216 , 2039, 5536]]) 5536 5536 -1
+2023-04-16 18:19:53.931 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 0 len 5 l2r score: -0.7423973083496094 ctc_score: -0.32379133110765906 reverse_weight: 0.0
+2023-04-16 18:19:53.932 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 1 len 5 l2r score: -2.3471508026123047 ctc_score: -2.249605559666796 reverse_weight: 0.0
+2023-04-16 18:19:53.932 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 2 len 5 l2r score: -5.320016384124756 ctc_score: -4.309549900860616 reverse_weight: 0.0
+2023-04-16 18:19:53.932 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 3 len 5 l2r score: -4.593781471252441 ctc_score: -4.4753513976160955 reverse_weight: 0.0
+2023-04-16 18:19:53.932 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 4 len 4 l2r score: -5.1034417152404785 ctc_score: -4.635861965985128 reverse_weight: 0.0
+2023-04-16 18:19:53.932 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 5 len 5 l2r score: -6.250926971435547 ctc_score: -4.946646172236618 reverse_weight: 0.0
+2023-04-16 18:19:53.932 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 6 len 5 l2r score: -5.028356552124023 ctc_score: -5.117076315546888 reverse_weight: 0.0
+2023-04-16 18:19:53.932 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 7 len 6 l2r score: -14.242005348205566 ctc_score: -5.260839430307722 reverse_weight: 0.0
+2023-04-16 18:19:53.933 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 8 len 5 l2r score: -5.804551124572754 ctc_score: -5.53430607632704 reverse_weight: 0.0
+2023-04-16 18:19:53.933 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 9 len 5 l2r score: -17.892226696014404 ctc_score: -6.274902683894868 reverse_weight: 0.0
+2023-04-16 18:19:53.933 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:608 - result: ((927, 4764, 57, 931, 2039), -0.32379133110765906)
+2023-04-16 18:20:00.922 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:563 - hyps pad: Tensor(shape=[10, 5], dtype=int64, place=Place(gpu:0), stop_gradient=True,
+       [[5536, 608 , 95  , 3082, 1071],
+        [5536, 1933, 95  , 3082, 1071],
+        [5536, 1275, 95  , 3082, 1071],
+        [5536, 608 , 2036, 3082, 1071],
+        [5536, 1876, 95  , 3082, 1071],
+        [5536, 4381, 95  , 3082, 1071],
+        [5536, 3865, 95  , 3082, 1071],
+        [5536, 608 , 2419, 3082, 1071],
+        [5536, 1933, 2036, 3082, 1071],
+        [5536, 1933, 2419, 3082, 1071]]) 5536 5536 -1
+2023-04-16 18:20:00.939 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 0 len 4 l2r score: -6.154173851013184 ctc_score: -2.5175215367755825 reverse_weight: 0.0
+2023-04-16 18:20:00.939 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 1 len 4 l2r score: -3.658689498901367 ctc_score: -3.198951535567323 reverse_weight: 0.0
+2023-04-16 18:20:00.939 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 2 len 4 l2r score: -9.61150074005127 ctc_score: -3.4540527844206212 reverse_weight: 0.0
+2023-04-16 18:20:00.940 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 3 len 4 l2r score: -6.638169288635254 ctc_score: -3.804447651175066 reverse_weight: 0.0
+2023-04-16 18:20:00.940 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 4 len 4 l2r score: -4.607290744781494 ctc_score: -3.9017575811827268 reverse_weight: 0.0
+2023-04-16 18:20:00.940 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 5 len 4 l2r score: -7.129749298095703 ctc_score: -3.924171032650075 reverse_weight: 0.0
+2023-04-16 18:20:00.940 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 6 len 4 l2r score: -7.772333145141602 ctc_score: -3.9261449900951244 reverse_weight: 0.0
+2023-04-16 18:20:00.940 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 7 len 4 l2r score: -6.7906880378723145 ctc_score: -3.9275775755900644 reverse_weight: 0.0
+2023-04-16 18:20:00.940 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 8 len 4 l2r score: -5.402144432067871 ctc_score: -4.485877649966806 reverse_weight: 0.0
+2023-04-16 18:20:00.941 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 9 len 4 l2r score: -9.274296760559082 ctc_score: -4.609007574381804 reverse_weight: 0.0
+2023-04-16 18:20:00.941 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:608 - result: ((1933, 95, 3082, 1071), -3.198951535567323)
+2023-04-16 18:20:11.133 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:563 - hyps pad: Tensor(shape=[10, 12], dtype=int64, place=Place(gpu:0), stop_gradient=True,
+       [[5536, 1209, 4764, 57  , 4561, 4937, 4763, 2084, 2141, 2813, 1386, 5536],
+        [5536, 1209, 4764, 57  , 4561, 4937, 4763, 2084, 2141, 2813, 1386, 3184],
+        [5536, 146 , 4764, 57  , 4561, 4937, 4763, 2084, 2141, 2813, 1386, 5536],
+        [5536, 146 , 4764, 57  , 4561, 4937, 4763, 2084, 2141, 2813, 1386, 3184],
+        [5536, 4764, 57  , 4561, 4937, 4763, 2084, 2141, 2813, 1386, 5536, 5536],
+        [5536, 1209, 4764, 4561, 4937, 4763, 2084, 2141, 2813, 1386, 5536, 5536],
+        [5536, 1075, 4764, 57  , 4561, 4937, 4763, 2084, 2141, 2813, 1386, 5536],
+        [5536, 1209, 57  , 4561, 4937, 4763, 2084, 2141, 2813, 1386, 5536, 5536],
+        [5536, 4764, 57  , 4561, 4937, 4763, 2084, 2141, 2813, 1386, 3184, 5536],
+        [5536, 1209, 4764, 4561, 4937, 4763, 2084, 2141, 2813, 1386, 3184, 5536]]) 5536 5536 -1
+2023-04-16 18:20:11.148 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 0 len 10 l2r score: -1.6869211196899414 ctc_score: -0.6266992482932396 reverse_weight: 0.0
+2023-04-16 18:20:11.148 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 1 len 11 l2r score: -2.3552141189575195 ctc_score: -1.483158954363345 reverse_weight: 0.0
+2023-04-16 18:20:11.148 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 2 len 10 l2r score: -3.621974468231201 ctc_score: -2.6144523194462272 reverse_weight: 0.0
+2023-04-16 18:20:11.148 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 3 len 11 l2r score: -4.499087810516357 ctc_score: -3.470912025516332 reverse_weight: 0.0
+2023-04-16 18:20:11.149 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 4 len 9 l2r score: -3.5163826942443848 ctc_score: -3.7959940429694763 reverse_weight: 0.0
+2023-04-16 18:20:11.149 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 5 len 9 l2r score: -10.815267562866211 ctc_score: -4.056093740608329 reverse_weight: 0.0
+2023-04-16 18:20:11.149 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 6 len 10 l2r score: -4.825797080993652 ctc_score: -4.244576563522578 reverse_weight: 0.0
+2023-04-16 18:20:11.149 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 7 len 9 l2r score: -11.903419494628906 ctc_score: -4.5917977150421 reverse_weight: 0.0
+2023-04-16 18:20:11.150 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 8 len 10 l2r score: -4.285318851470947 ctc_score: -4.775101027440326 reverse_weight: 0.0
+2023-04-16 18:20:11.150 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 9 len 10 l2r score: -11.533673286437988 ctc_score: -5.035200725079179 reverse_weight: 0.0
+2023-04-16 18:20:11.150 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:608 - result: ((1209, 4764, 57, 4561, 4937, 4763, 2084, 2141, 2813, 1386), -0.6266992482932396)
+2023-04-16 18:20:19.199 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:563 - hyps pad: Tensor(shape=[10, 14], dtype=int64, place=Place(gpu:0), stop_gradient=True,
+       [[5536, 144 , 4422, 1529, 35  , 1454, 2141, 5078, 5267, 146 , 37  , 2655,
+         2323, 5536],
+        [5536, 144 , 4422, 1529, 3221, 1454, 2141, 5078, 5267, 146 , 37  , 2655,
+         2323, 5536],
+        [5536, 144 , 4422, 1529, 35  , 57  , 1454, 2141, 5078, 5267, 146 , 37  ,
+         2655, 2323],
+        [5536, 144 , 4422, 1529, 5241, 1454, 2141, 5078, 5267, 146 , 37  , 2655,
+         2323, 5536],
+        [5536, 144 , 4422, 1529, 3221, 57  , 1454, 2141, 5078, 5267, 146 , 37  ,
+         2655, 2323],
+        [5536, 144 , 4422, 1529, 36  , 1454, 2141, 5078, 5267, 146 , 37  , 2655,
+         2323, 5536],
+        [5536, 144 , 4422, 1529, 35  , 1454, 2141, 5078, 5267, 4763, 37  , 2655,
+         2323, 5536],
+        [5536, 144 , 4422, 1529, 35  , 376 , 2141, 5078, 5267, 146 , 37  , 2655,
+         2323, 5536],
+        [5536, 144 , 4422, 1529, 3221, 1454, 2141, 5078, 5267, 4763, 37  , 2655,
+         2323, 5536],
+        [5536, 144 , 4422, 1529, 35  , 1454, 2141, 5078, 5267, 146 , 179 , 2655,
+         2323, 5536]]) 5536 5536 -1
+2023-04-16 18:20:19.213 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 0 len 12 l2r score: -16.50281047821045 ctc_score: -4.827515258728983 reverse_weight: 0.0
+2023-04-16 18:20:19.213 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 1 len 12 l2r score: -16.995844841003418 ctc_score: -4.939118211998828 reverse_weight: 0.0
+2023-04-16 18:20:19.213 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 2 len 13 l2r score: -22.824827671051025 ctc_score: -5.523529948356537 reverse_weight: 0.0
+2023-04-16 18:20:19.213 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 3 len 12 l2r score: -19.36994457244873 ctc_score: -5.5495603429645435 reverse_weight: 0.0
+2023-04-16 18:20:19.213 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 4 len 13 l2r score: -22.671603679656982 ctc_score: -5.635132901626382 reverse_weight: 0.0
+2023-04-16 18:20:19.214 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 5 len 12 l2r score: -22.124830722808838 ctc_score: -5.855533346443087 reverse_weight: 0.0
+2023-04-16 18:20:19.214 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 6 len 12 l2r score: -18.5580153465271 ctc_score: -5.966948301825114 reverse_weight: 0.0
+2023-04-16 18:20:19.214 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 7 len 12 l2r score: -19.52448034286499 ctc_score: -6.062866821228983 reverse_weight: 0.0
+2023-04-16 18:20:19.214 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 8 len 12 l2r score: -18.945082664489746 ctc_score: -6.0785512550949585 reverse_weight: 0.0
+2023-04-16 18:20:19.214 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:587 - hyp 9 len 12 l2r score: -18.34002113342285 ctc_score: -6.127640286153194 reverse_weight: 0.0
+2023-04-16 18:20:19.214 | DEBUG    | paddlespeech.s2t.models.u2.u2:attention_rescoring:608 - result: ((144, 4422, 1529, 35, 1454, 2141, 5078, 5267, 146, 37, 2655, 2323), -4.827515258728983)
