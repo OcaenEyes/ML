@@ -7,6 +7,6 @@ WORKDIR /home/pythonapps/nlp/gushi_server
 RUN pip install --upgrade pip -i http://pypi.douban.com/simple --trusted-host pypi.douban.com
 RUN pip install tensorflow-cpu -i https://pypi.tuna.tsinghua.edu.cn/simple
 RUN pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
-COPY . /home/pythonapps/nlp/gushi_server
+COPY . /home/pyCOPY
 EXPOSE 5003
 CMD ["python","poetry_api.py"]

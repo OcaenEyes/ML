@@ -72,7 +72,7 @@ def convert_single_example(max_seq_length, tokenizer, text_a, text_b=None):
 
 # 预训练或者自训练的词表文件
 # vocab_file = "../uncased_L-2_H-128_A-2/vocab.txt"
-vocab_file = "../model/chinese_L-12_H-768_A-12/vocab.txt"
+vocab_file = "./chinese_L-12_H-768_A-12_vocab.txt"
 token = tokenization.FullTokenizer(vocab_file=vocab_file)
 
 
@@ -87,9 +87,9 @@ def ugc_bert(content):
     headers = {"content-type": "application/json"}
     # 根据自己的服务ip 端口号和model_name修改
     json_response = requests.post('http://localhost:8501/v1/models/ugc:predict', data=data, headers=headers)
-    # print(data, json_response.text)
-    # print(data)
-    # print("*******************")
+    print(data, json_response.text)
+    print(data)
+    print("*******************")
     # print(json_response)
     # print("*******************")
     # print(json_response.text)
@@ -112,7 +112,7 @@ def email_bert(content):
     return jsonify(json.loads(json_response.text))
 
 
-@app.route('/api/motion', methods=['POST'])
+@app.route('/api/motion', methods=['POST','OPTIONS'])
 def motiondetect():
     # print(request.args)
     # print(request.data)
@@ -147,10 +147,11 @@ def motiondetect():
             result["msg"] = "error"
             result["status"] = 1
             pass
+    print(result)
     return result
 
 
-@app.route('/api/email', methods=['POST'])
+@app.route('/api/email', methods=['POST','OPTIONS'])
 def emaildetect():
     content = request.args.get("text")
     # req_data = json.loads(request.data)
